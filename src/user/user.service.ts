@@ -90,6 +90,6 @@ export class UserService {
   async delete(id: number) {
     await this.findOne(id);
     await this.usersRepository.delete(id);
-    return `Usuario com id ${id} foi deletado`;
+    return true;
   }
 }
