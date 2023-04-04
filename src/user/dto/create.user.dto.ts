@@ -22,9 +22,9 @@ export class CreateUserDTO {
 
   @IsOptional()
   @IsDateString()
-  birthAt: string;
+  birthAt?: string;
 
   @IsEnum(Role)
   @IsOptional()
-  role: number;
+  role?: number;
 }

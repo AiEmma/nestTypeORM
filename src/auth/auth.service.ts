@@ -64,10 +64,8 @@ export class AuthService {
   }
 
   async login(email: string, password: string) {
-    const user = await this.usersRepository.findOne({
-      where: {
-        email,
-      },
+    const user = await this.usersRepository.findOneBy({
+      email,
     });
     if (!user) {
       throw new UnauthorizedException('Email e/ou senha incorretos.');
@@ -82,10 +80,8 @@ export class AuthService {
   }
 
   async forget(email: string) {
-    const user = await this.usersRepository.findOne({
-      where: {
-        email,
-      },
+    const user = await this.usersRepository.findOneBy({
+      email,
     });
     if (!user) {
       throw new UnauthorizedException('Email está incorreto.');
@@ -102,6 +98,7 @@ export class AuthService {
         audience: 'users',
       },
     );
+    console.log(token);
 
     await this.mailer.sendMail({
       subject: 'Recuperação de senha',
@@ -112,7 +109,7 @@ export class AuthService {
         token,
       },
     });
-    return true;
+    return { success: true };
   }
 
   async reset(password: string, token: string) {

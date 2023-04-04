@@ -32,7 +32,7 @@ import { UserEntity } from './user/entity/user.entity';
         },
       },
       defaults: {
-        from: '"Danielle" <neal.veum71@ethereal.email>',
+        from: '"Danielle" <alvera64@ethereal.email>',
       },
       template: {
         dir: __dirname + '/templates',

@@ -10,6 +10,7 @@ import {
   ParseFilePipe,
   FileTypeValidator,
   MaxFileSizeValidator,
+  Req,
 } from '@nestjs/common';
 import {
   FileFieldsInterceptor,
@@ -58,8 +59,8 @@ export class AuthController {
 
   @UseGuards(AuthGuard)
   @Post('me')
-  async me(@UserCustomDecorator() user) {
-    return { user };
+  async me(@UserCustomDecorator() user, @Req() { tokenPayload }) {
+    return { user, tokenPayload };
   }
 
   @UseInterceptors(FileInterceptor('file'))
