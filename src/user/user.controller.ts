@@ -12,16 +12,16 @@ import {
   UseInterceptors,
 } from '@nestjs/common';
 import { ThrottlerGuard } from '@nestjs/throttler';
-import { paramIdDecorator } from 'src/decorator/param-id-decorator';
-import { Roles } from 'src/decorator/roles.decorator';
-import { Role } from 'src/enums/role.enum';
-import { AuthGuard } from 'src/guards/auth.guard';
-import { RoleGuard } from 'src/guards/role.guard';
-import { LogInterceptor } from 'src/interceptor/log.interceptor';
 import { CreateUserDTO } from './dto/create.user.dto';
 import { UpdatePatchUserDTO } from './dto/update-patch.user.dto';
 import { UpdatePutUserDTO } from './dto/update-put.user.dto';
 import { UserService } from './user.service';
+import { paramIdDecorator } from '../decorator/param-id-decorator';
+import { Roles } from '../decorator/roles.decorator';
+import { Role } from '../enums/role.enum';
+import { AuthGuard } from '../guards/auth.guard';
+import { RoleGuard } from '../guards/role.guard';
+import { LogInterceptor } from '../interceptor/log.interceptor';
 
 @UseGuards(AuthGuard, RoleGuard)
 @UseInterceptors(LogInterceptor) //usado aqui funciona em todas essas rotas
