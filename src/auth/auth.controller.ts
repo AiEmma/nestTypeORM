@@ -16,9 +16,6 @@ import {
   FileInterceptor,
   FilesInterceptor,
 } from '@nestjs/platform-express';
-import { UserCustomDecorator } from 'src/decorator/user.decorator';
-import { AuthGuard } from 'src/guards/auth.guard';
-import { UserService } from 'src/user/user.service';
 import { AuthService } from './auth.service';
 import { AuthForgetDto } from './dto/auth-forget.dto';
 import { AuthLoginDto } from './dto/auth-login.dto';
@@ -26,7 +23,10 @@ import { AuthLoginDto } from './dto/auth-login.dto';
 import { AuthRegisterDto } from './dto/auth-register.dto';
 import { AuthResetDto } from './dto/auth-reset.dto';
 import { join } from 'path';
-import { FileService } from 'src/file/file.service';
+import { FileService } from '../file/file.service';
+import { UserService } from '../user/user.service';
+import { AuthGuard } from '../guards/auth.guard';
+import { UserCustomDecorator } from '../decorator/user.decorator';
 
 @Controller('auth')
 export class AuthController {
