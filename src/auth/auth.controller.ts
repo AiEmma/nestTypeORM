@@ -10,7 +10,6 @@ import {
   ParseFilePipe,
   FileTypeValidator,
   MaxFileSizeValidator,
-  Req,
 } from '@nestjs/common';
 import {
   FileFieldsInterceptor,
@@ -23,16 +22,14 @@ import { AuthLoginDto } from './dto/auth-login.dto';
 //import { AuthMeDto } from './dto/auth-me.dto';
 import { AuthRegisterDto } from './dto/auth-register.dto';
 import { AuthResetDto } from './dto/auth-reset.dto';
-import { join } from 'path';
 import { FileService } from '../file/file.service';
-import { UserService } from '../user/user.service';
 import { AuthGuard } from '../guards/auth.guard';
 import { UserCustomDecorator } from '../decorator/user.decorator';
+import { UserEntity } from '../user/entity/user.entity';
 
 @Controller('auth')
 export class AuthController {
   constructor(
-    private readonly userService: UserService,
     private readonly authService: AuthService,
     private readonly fileService: FileService,
   ) {}
@@ -59,8 +56,8 @@ export class AuthController {
 
   @UseGuards(AuthGuard)
   @Post('me')
-  async me(@UserCustomDecorator() user, @Req() { tokenPayload }) {
-    return { user, tokenPayload };
+  async me(@UserCustomDecorator() user: UserEntity) {
+    return user;
   }
 
   @UseInterceptors(FileInterceptor('file'))
@@ -84,7 +81,7 @@ export class AuthController {
     } catch (e) {
       throw new BadRequestException(e);
     }
-    return { sucess: true };
+    return photo;
   }
 
   @UseInterceptors(FilesInterceptor('files'))
@@ -112,7 +109,7 @@ export class AuthController {
   @UseGuards(AuthGuard)
   @Post('files-fields')
   async uploadFilesFields(
-    @UserCustomDecorator() user,
+    @UserCustomDecorator() user: UserEntity,
     @UploadedFiles()
     files: { photo: Express.Multer.File; documents: Express.Multer.File[] },
   ) {
